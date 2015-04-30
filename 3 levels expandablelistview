@@ -1,4 +1,4 @@
-package com.sportlobster.android;
+package com.example.android;
 
 import android.app.Activity;
 import android.content.Context;
@@ -72,9 +72,9 @@ public class NewEventsListActivity extends Activity {
         public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
             if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.new_events_list_sport_row, null);
+                convertView = inflater.inflate(R.layout.new_events_list_row, null);
                 TextView text = (TextView) convertView.findViewById(R.id.eventsListEventRowText);
-                text.setText("SPORT LEVEL");
+                text.setText("LEVEL");
             }
             return convertView;
         }
@@ -220,7 +220,7 @@ android:id="@+id/eventsListEventRowText"
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/sportlobster_dark_blue"
+        android:background="@color/dark_blue"
         android:padding="10dp"
         android:orientation="vertical">
 
