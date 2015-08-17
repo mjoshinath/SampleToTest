@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int FIRST_LEVEL_COUNT = 6;
     public static final int SECOND_LEVEL_COUNT = 5;
     public static final int THIRD_LEVEL_COUNT = 15;
-    public static final int MAX_THIRD_LEVEL_LIST_HEIGHT = 3000;
+    public static final int MAX_THIRD_LEVEL_LIST_HEIGHT = 9999;
     private ExpandableListView expandableListView;
 
     @Override
@@ -101,8 +101,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-            //widthMeasureSpec = MeasureSpec.makeMeasureSpec(960, MeasureSpec.AT_MOST);
-            //heightMeasureSpec = MeasureSpec.makeMeasureSpec(800, MeasureSpec.AT_MOST);
             heightMeasureSpec = MeasureSpec.makeMeasureSpec(MAX_THIRD_LEVEL_LIST_HEIGHT, MeasureSpec.AT_MOST);
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
@@ -179,4 +177,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-
