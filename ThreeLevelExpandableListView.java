@@ -14,7 +14,7 @@ import android.widget.TextView;
  * New and improved. Feel free to contact me if you have any questions.
  */
 
-public class MainActivity extends AppCompatActivity {
+public class ThreeLevelExpandableListView extends AppCompatActivity {
 
     public static final int FIRST_LEVEL_COUNT = 6;
     public static final int SECOND_LEVEL_COUNT = 4;
