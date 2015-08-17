@@ -1,8 +1,8 @@
-package com.example.android;
+package net.stf.threelevelexpandablelistview;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +10,20 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-public class NewEventsListActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
-    ExpandableListView explvlist;
+    public static final int FIRST_LEVEL_COUNT = 6;
+    public static final int SECOND_LEVEL_COUNT = 5;
+    public static final int THIRD_LEVEL_COUNT = 15;
+    public static final int MAX_THIRD_LEVEL_LIST_HEIGHT = 3000;
+    private ExpandableListView expandableListView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_events_list);
-        explvlist = (ExpandableListView) findViewById(R.id.ParentLevel);
-        explvlist.setAdapter(new ParentLevel(this));
+        setContentView(R.layout.activity_main);
+        expandableListView = (ExpandableListView) findViewById(R.id.mainList);
+        expandableListView.setAdapter(new ParentLevel(this));
     }
 
     public class ParentLevel extends BaseExpandableListAdapter {
@@ -42,15 +46,15 @@ public class NewEventsListActivity extends Activity {
 
         @Override
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-            CustExpListview SecondLevelexplv = new CustExpListview(NewEventsListActivity.this);
-            SecondLevelexplv.setAdapter(new SecondLevelAdapter(context));
-            SecondLevelexplv.setGroupIndicator(null);
-            return SecondLevelexplv;
+            SecondLevelExpandableListView secondLevelELV = new SecondLevelExpandableListView(MainActivity.this);
+            secondLevelELV.setAdapter(new SecondLevelAdapter(context));
+            secondLevelELV.setGroupIndicator(null);
+            return secondLevelELV;
         }
 
         @Override
         public int getChildrenCount(int groupPosition) {
-            return 3;
+            return SECOND_LEVEL_COUNT;
         }
 
         @Override
@@ -60,7 +64,7 @@ public class NewEventsListActivity extends Activity {
 
         @Override
         public int getGroupCount() {
-            return 5;
+            return FIRST_LEVEL_COUNT;
         }
 
         @Override
@@ -72,9 +76,9 @@ public class NewEventsListActivity extends Activity {
         public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
             if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.new_events_list_row, null);
+                convertView = inflater.inflate(R.layout.row_first, null);
                 TextView text = (TextView) convertView.findViewById(R.id.eventsListEventRowText);
-                text.setText("LEVEL");
+                text.setText("FIRST LEVEL");
             }
             return convertView;
         }
@@ -90,15 +94,16 @@ public class NewEventsListActivity extends Activity {
         }
     }
 
-    public class CustExpListview extends ExpandableListView {
+    public class SecondLevelExpandableListView extends ExpandableListView {
 
-        public CustExpListview(Context context) {
+        public SecondLevelExpandableListView(Context context) {
             super(context);
         }
 
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
             //widthMeasureSpec = MeasureSpec.makeMeasureSpec(960, MeasureSpec.AT_MOST);
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(600, MeasureSpec.AT_MOST);
+            //heightMeasureSpec = MeasureSpec.makeMeasureSpec(800, MeasureSpec.AT_MOST);
+            heightMeasureSpec = MeasureSpec.makeMeasureSpec(MAX_THIRD_LEVEL_LIST_HEIGHT, MeasureSpec.AT_MOST);
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
@@ -109,32 +114,6 @@ public class NewEventsListActivity extends Activity {
 
         public SecondLevelAdapter(Context context) {
             this.context = context;
-        }
-
-        @Override
-        public Object getChild(int groupPosition, int childPosition) {
-            return childPosition;
-        }
-
-        @Override
-        public long getChildId(int groupPosition, int childPosition) {
-            return childPosition;
-        }
-
-        @Override
-        public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.new_events_list_event_row, null);
-                TextView text = (TextView) convertView.findViewById(R.id.eventsListEventRowText);
-                text.setText("EVENT LEVEL");
-            }
-            return convertView;
-        }
-
-        @Override
-        public int getChildrenCount(int groupPosition) {
-            return 5;
         }
 
         @Override
@@ -156,11 +135,37 @@ public class NewEventsListActivity extends Activity {
         public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
             if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.new_events_list_league_row, null);
+                convertView = inflater.inflate(R.layout.row_third, null);
                 TextView text = (TextView) convertView.findViewById(R.id.eventsListEventRowText);
-                text.setText("LEAGUE LEVEL");
+                text.setText("SECOND LEVEL");
             }
             return convertView;
+        }
+
+        @Override
+        public Object getChild(int groupPosition, int childPosition) {
+            return childPosition;
+        }
+
+        @Override
+        public long getChildId(int groupPosition, int childPosition) {
+            return childPosition;
+        }
+
+        @Override
+        public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.row_second, null);
+                TextView text = (TextView) convertView.findViewById(R.id.eventsListEventRowText);
+                text.setText("THIRD LEVEL");
+            }
+            return convertView;
+        }
+
+        @Override
+        public int getChildrenCount(int groupPosition) {
+            return THIRD_LEVEL_COUNT;
         }
 
         @Override
@@ -175,59 +180,3 @@ public class NewEventsListActivity extends Activity {
     }
 }
 
-//1st row
-
-/*
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/new_events_list_test_bg"
-        android:padding="10dp"
-        android:orientation="vertical">
-
-<TextView
-android:id="@+id/eventsListEventRowText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"/>
-</LinearLayout>*/
-
-//2nd row
-
-/*
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp"
-        android:orientation="vertical"
-        android:background="@android:color/holo_green_dark">
-
-<TextView
-android:id="@+id/eventsListEventRowText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"/>
-</LinearLayout>*/
-
-//3rd row
-
-/*
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/dark_blue"
-        android:padding="10dp"
-        android:orientation="vertical">
-
-<TextView
-android:id="@+id/eventsListEventRowText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"/>
-</LinearLayout>*/
