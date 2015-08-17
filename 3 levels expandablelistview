@@ -104,8 +104,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-            //99999 is a size in pixels. ExpandableListView requires a maximum height in order to do measurement calculations. 
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(99999, MeasureSpec.AT_MOST);
+            //999999 is a size in pixels. ExpandableListView requires a maximum height in order to do measurement calculations. 
+            heightMeasureSpec = MeasureSpec.makeMeasureSpec(999999, MeasureSpec.AT_MOST);
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
@@ -181,3 +181,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+
