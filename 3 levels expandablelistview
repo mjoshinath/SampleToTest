@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
     public static final int FIRST_LEVEL_COUNT = 6;
     public static final int SECOND_LEVEL_COUNT = 4;
     public static final int THIRD_LEVEL_COUNT = 20;
-    public static final int MAX_THIRD_LEVEL_LIST_HEIGHT = 9999;
     private ExpandableListView expandableListView;
 
     @Override
@@ -105,7 +104,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(MAX_THIRD_LEVEL_LIST_HEIGHT, MeasureSpec.AT_MOST);
+            //99999 is a size in pixels. ExpandableListView requires a maximum height in order to do measurement calculations. 
+            heightMeasureSpec = MeasureSpec.makeMeasureSpec(99999, MeasureSpec.AT_MOST);
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
