@@ -10,6 +10,10 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
+/**
+ * New and improved. Feel free to contact me if you have any questions.
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     public static final int FIRST_LEVEL_COUNT = 6;
